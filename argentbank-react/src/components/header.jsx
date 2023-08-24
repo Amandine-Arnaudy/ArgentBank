@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import argentBankLogo from '../assets/argentBankLogo.png';
-import '../styles/header.css';
+import '../styles/index.css';
 
 function Header() {
     return (
         <nav className="main-nav">
-            <Link to="./index.html" className="main-nav-logo">
+            <Link to="/" className="main-nav-logo">
                 <img
                     className="main-nav-logo-image"
                     src={argentBankLogo}
@@ -18,7 +18,7 @@ function Header() {
                 <Link to="./sign-in.html" className="main-nav-item">
                     <i className="fa fa-user-circle"></i>
                     <Link to="/sign-in">Sign in</Link>
-                </Link> 
+                </Link>
             </div>
         </nav>
     );
