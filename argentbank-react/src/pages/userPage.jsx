@@ -1,9 +1,11 @@
-import Account from '../components/user/account'
+import Account from '../components/account'
+import HeaderUser from '../containers/headerUser'
 
 function App() {
 
     return (
         <>
+            <HeaderUser />
             <Account />
         </>
     )

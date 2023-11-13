@@ -1,11 +1,13 @@
-import Hero from '../components/index/hero'
-import Features from '../components/index/features'
+import Banner from '../containers/banner'
+import Features from '../containers/features'
+import Header from '../containers/header'
 
 function App() {
 
     return (
         <>
-            <Hero />
+            <Header />
+            <Banner />
             <Features />
         </>
     )
