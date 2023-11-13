@@ -8,7 +8,9 @@ import React, { useState } from 'react';
 function Form() {
 
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')  
+    const [password, setPassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(false);
+
 
     const status = useSelector((state) => state.user.status)
     const error = useSelector((state) => state.user.error)
@@ -16,7 +18,7 @@ function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    if (status === 'success'){
+    if (status === 'success') {
         navigate('/user')
     }
 
@@ -28,24 +30,32 @@ function Form() {
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} />
             </div>
             {status === 'error' &&
-                <div className="errorMessage" id="errorText">{ error }</div>
+                <div className="errorMessage" id="errorText">{error}</div>
             }
             <div className="input-remember">
-                <input type="checkbox" id="remember-me" />
+                <input
+                    type="checkbox"
+                    id="remember-me"
+                    checked={rememberMe}
+                    onChange={() => setRememberMe(!rememberMe)}
+                />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
-            <button 
-                href="./user.html" 
-                className="sign-in-button" 
+
+            <button
+                href="./user.html"
+                className="sign-in-button"
                 onClick={(e) => {
-                    e.preventDefault()
-                    dispatch(userLogIn({ email:email, password:password }))
-                }}>
+                    e.preventDefault();
+                    dispatch(userLogIn({ email, password, rememberMe }));
+                }}
+            >
                 Sign In
             </button>
+
         </ form>
     )
 }
