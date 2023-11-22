@@ -5,14 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const HeaderUser = () => {
+
     const dispatch = useDispatch();
+
+    // hook pour obtenir le surnom depuis le store
     const userName = useSelector((state) => state.user.user.userName);
     const navigate = useNavigate();
 
+    // fonction pour déconnecter l'utilisateur
     const clearToken = (e) => {
         e.preventDefault();
         dispatch({ type: 'LOGOUT' });
-        navigate('/sign-in');
+        navigate('/');
     };
 
     return (
@@ -33,7 +37,7 @@ export const HeaderUser = () => {
                 <Link className="main-nav-item">
                     <i className="fa-solid fa-gear"></i>
                 </Link>
-                <Link className="main-nav-item" onClick={clearToken}>
+                <Link className="main-nav-item" onClick={clearToken} to="/">
                     <i className="fa-solid fa-power-off"></i>
                 </Link>
             </div>

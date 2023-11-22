@@ -10,6 +10,7 @@ function App() {
 
     const isLoggedIn = useSelector((state) => state.user.status === 'success');
 
+    // fonction gestion de la déconnexion
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
     };

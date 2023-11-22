@@ -7,17 +7,19 @@ import React, { useState } from 'react';
 
 function Form() {
 
+    // états locaux pour stocker email, mdp, remember me
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false);
 
-
+    // redux pour obtenir le statut de la connexion et erreur
     const status = useSelector((state) => state.user.status)
     const error = useSelector((state) => state.user.error)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // redirection vers la page utilisateur si la connexion est réussie
     if (status === 'success') {
         navigate('/user')
     }
@@ -26,11 +28,11 @@ function Form() {
         <form id="logIn">
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} autocomplete="off" />
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} autocomplete="off" />
             </div>
             {status === 'error' &&
                 <div className="errorMessage" id="errorText">{error}</div>
