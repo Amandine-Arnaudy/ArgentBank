@@ -29,7 +29,7 @@ export const HeaderUser = () => {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            <div>
+            <div className='div-main'>
                 <Link className="main-nav-item" to="/user">
                     {userName}
                     <i className="fa fa-user-circle"></i>

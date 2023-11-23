@@ -23,7 +23,7 @@ export default function App() {
     // gestion du clic sur le bouton d'édition
     const handleClick = () => {
         setIsActive(current => !current);
-        setTitleText('Edit user name');
+        setTitleText('Edit user info');
         setFirstName('');
         setLastName('');
         setPoint('');

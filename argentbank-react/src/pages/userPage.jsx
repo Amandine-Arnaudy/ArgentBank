@@ -39,7 +39,7 @@ function App() {
         <>
             <HeaderUser />
             <div className="user_container">
-                <main className="main bg-dark">
+                <main className="main">
                     <div className="header">
                         <EditName />
                     </div>
