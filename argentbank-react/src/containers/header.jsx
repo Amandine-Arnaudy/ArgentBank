@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import argentBankLogo from '../assets/argentBankLogo.png';
+import argentBankLogo from '../assets/argentBankLogo.webp';
 import '../styles/index.css';
 
 function Header() {
