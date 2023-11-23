@@ -1,6 +1,7 @@
 import '../styles/index.css';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { userLogIn } from '../redux/reducers/user.reducer'
+import { userLogIn } from '../redux/user.reducer'
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 
@@ -19,20 +20,22 @@ function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    // redirection vers la page utilisateur si la connexion est réussie
-    if (status === 'success') {
-        navigate('/user')
-    }
+    useEffect(() => {
+        // Redirection vers la page utilisateur si la connexion est réussie
+        if (status === 'success') {
+          navigate('/user');
+        }
+      }, [status, navigate]);
 
     return (
         <form id="logIn">
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} autocomplete="off" />
+                <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} autocomplete="off" />
+                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} />
             </div>
             {status === 'error' &&
                 <div className="errorMessage" id="errorText">{error}</div>

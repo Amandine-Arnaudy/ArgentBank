@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import persistConfig from '../persistConfig';
 
-// "tat général du slice "user"
+// état général du slice "user"
 const initialState = {
     user: {
         email: '',
@@ -13,6 +11,7 @@ const initialState = {
     },
     status: 'idle',
     error: '',
+    isAuthenticated: false,
 }
 
 // gère la connexion de l'utilisateur
@@ -28,68 +27,70 @@ export const userLogIn = createAsyncThunk(
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify({ email, password })
-            }).then(res => {
-                if (res.ok) {
-                    return res.json()
-                } else {
-                    throw new Error("Error: User not found!")
-                }
-            }).then(data => {
-                return data
-            })
+            });
 
-            // appel fonction pour avoir les infos de l'utilisateur
-            const user = await getUserInfos(response.body.token)
+            if (!response.ok) {
+                throw new Error("Error: User not found!");
+            }
 
-            // retour de données pour le traitement par le reducer
-            return { email: email, data: user.body, token: response.body.token }
+            const data = await response.json();
+            const user = await getUserInfos(data.body.token);
+
+            return { email, data: user.body, token: data.body.token };
         } catch (error) {
-            return thunkApi.rejectWithValue(error.message)
+            return thunkApi.rejectWithValue(error.message);
         }
     }
-)
+);
 
 // edit du surnom
 export const editUserName = createAsyncThunk(
     'user/editUserName',
     async ({ userName, token }, thunkApi) => {
-        try{
+        try {
 
-            // appel API pour éditer le surnom
+            // appel APi pour éditer le surnom
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
                 method: 'PUT',
                 headers: {
-                    'Authorization' : `Bearer ${token}`,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify({ userName })
-            }).then(res => {
-                if (res.ok) {
-                    console.log(userName)
-                    return res.json()
-                }         
-            })
-            return response
-        }catch(error){
-            return thunkApi.rejectWithValue(error.message)
+            });
+
+            if (!response.ok) {
+                console.log(userName);
+                throw new Error("Error editing username!");
+            }
+
+            return response.json();
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.message);
         }
     }
-)
+);
 
 // informations de l'utilisateur
 async function getUserInfos(token) {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
+    try {
+        const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Error fetching user information!");
         }
-    })
-    return response
+
+        return response.json();
+    } catch (error) {
+        console.error('Erreur dans la promesse :', error);
+        return null; 
+    }
 }
 
 // création du slice 'user'
@@ -135,6 +136,4 @@ const userSlice = createSlice({
     }
 });
 
-const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
-
-export default persistedUserReducer 
+export default userSlice.reducer 

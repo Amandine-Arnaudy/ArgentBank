@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editUserName } from '../redux/reducers/user.reducer';
+import { editUserName } from '../redux/user.reducer';
 
 export default function App() {
 
@@ -42,62 +42,62 @@ export default function App() {
     // mise à jour du surnom lorsqu'il est changé
     useEffect(() => {
         setUserName(initialUserName)
-    },[initialUserName])
+    }, [initialUserName])
 
-  return (
-    <div>
-        <h1 className='userEdit_title' >{titleText}<br/>{firstName} {lastName} {point}</h1>
-        <div className='userName'>
-            <form 
-                className='userName_form' 
-                id="userNameEdit"
-                style={{display: isActive ? 'flex' : 'none',}}
+    return (
+        <div>
+            <h1 className='userEdit_title' >{titleText}<br />{firstName} {lastName} {point}</h1>
+            <div className='userName'>
+                <form
+                    className='userName_form'
+                    id="userNameEdit"
+                    style={{ display: isActive ? 'flex' : 'none', }}
+                >
+                    <div className="userName_input">
+                        <label htmlFor="userName">User Name</label>
+                        <input type="text" id="userName" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                    </div>
+                    <div className="userName_input">
+                        <label htmlFor="firstName">First Name</label>
+                        <input type="text" id="firstName" value={userFirstName} onChange={(e) => e.preventDefault()} disabled />
+                    </div>
+                    <div className="userName_input">
+                        <label htmlFor="lastName">Last Name</label>
+                        <input type="text" id="LastName" value={userLastName} onChange={(e) => e.preventDefault()} disabled />
+                    </div>
+                    <div className='userNameButton_wrapper'>
+                        <button
+                            className="userName_button"
+                            disabled={!userName}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                dispatch(editUserName({ userName: userName, token: token }))
+                                dispatch(reverseClick)
+                            }}
+                        >
+                            Save
+                        </button>
+                        <button
+                            className="userName_button"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                dispatch(reverseClick)
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </ form>
+            </div>
+            <button
+                className="edit-button"
+                style={{
+                    display: isActive ? 'none' : '',
+                }}
+                onClick={handleClick}
             >
-                <div className="userName_input">
-                    <label htmlFor="userName">User Name</label>
-                    <input type="text" id="userName" value={userName} onChange={(e) => setUserName(e.target.value)}/>
-                </div>
-                <div className="userName_input">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" value={userFirstName} onChange={(e) => e.preventDefault()} disabled/>
-                </div>
-                <div className="userName_input">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="LastName" value={userLastName} onChange={(e) => e.preventDefault()} disabled/>
-                </div>
-                <div className='userNameButton_wrapper'>
-                    <button 
-                        className="userName_button"
-                        disabled={!userName}
-                        onClick={(e) => {
-                            e.preventDefault()
-                            dispatch(editUserName({ userName:userName, token:token }))
-                            dispatch(reverseClick)
-                        }}
-                    >
-                        Save
-                    </button>
-                    <button 
-                        className="userName_button"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            dispatch(reverseClick)
-                        }}
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </ form>
+                Edit Name
+            </button>
         </div>
-        <button
-            className="edit-button"
-            style={{
-            display: isActive ? 'none' : '',
-            }}
-            onClick={handleClick}
-        >
-            Edit Name
-        </button>
-    </div>
-  );
+    );
 }
