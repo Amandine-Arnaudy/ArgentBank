@@ -343,16 +343,11 @@ body {
     margin-bottom: 2rem;
 }
 
-.transaction-button {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
+.account-content-wrapper i {
     color: #fff;
+    cursor: pointer;
+    font-size: 4em;
+    transform: rotate(90deg);
 }
 
 @media (min-width: 720px) {
@@ -366,5 +361,9 @@ body {
 
     .transaction-button {
         width: 200px;
+    }
+
+    .account-content-wrapper i {
+        transform: rotate(0deg);
     }
 }

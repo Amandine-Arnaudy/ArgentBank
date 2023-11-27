@@ -51,7 +51,6 @@ function Form() {
             </div>
 
             <button
-                href="./user.html"
                 className="sign-in-button"
                 onClick={(e) => {
                     e.preventDefault();
