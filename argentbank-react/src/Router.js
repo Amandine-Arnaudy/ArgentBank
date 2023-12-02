@@ -14,6 +14,7 @@ function App() {
                 <Route path='/' element={<Index />}/>
                 <Route path='/sign-in' element={<SignIn />}/>
                 <Route path='/user' element={<User />}/>
+                <Route path="*" element={<Index />} />
             </Routes>
             <Footer />
         </div>
@@ -21,3 +22,4 @@ function App() {
 }
 
 export default App;
+

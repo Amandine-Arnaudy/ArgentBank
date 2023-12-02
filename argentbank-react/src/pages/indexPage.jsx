@@ -7,7 +7,6 @@ import Features from '../containers/features';
 
 function App() {
     const dispatch = useDispatch();
-
     const isLoggedIn = useSelector((state) => state.user.status === 'success');
 
     // fonction gestion de la déconnexion

@@ -29,7 +29,6 @@ export default function App() {
         setPoint('');
     };
 
-
     // gestion du clic sur le bouton d'annulation
     const reverseClick = () => {
         setIsActive(current => !current);

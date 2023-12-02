@@ -16,3 +16,4 @@ function Feature({image, title, description}) {
 }
 
 export default Feature
+
